@@ -1,4 +1,4 @@
-import { askAI } from "../ai.mjs";
+import { askAI } from "../public/ai.mjs";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -15,6 +15,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ response });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ response: "Server error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
