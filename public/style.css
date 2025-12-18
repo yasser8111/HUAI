@@ -181,7 +181,7 @@ button.send {
   border-radius: 50%;
   border: none;
   background: var(--accent-color);
-  color: #fff;
+  color: var(--primary-bg);
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   const { prompt } = req.body;
-  if (!prompt) {
+  if (!prompt || typeof prompt !== 'string' || !prompt.trim()) {
     return res.status(400).json({ error: "prompt required" });
   }
 
@@ -15,6 +15,6 @@ export default async function handler(req, res) {
     res.status(200).json({ response });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ response: "حدث خطأ أثناء معالجة الطلب" });
+    res.status(500).json({ error: "An error occurred while processing the request" });
   }
 }
