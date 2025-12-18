@@ -80,7 +80,7 @@ async function sendMessage() {
   chatContainer.appendChild(loadingMessage);
 
   try {
-    const res = await fetch("/ask", {
+    const res = await fetch("http://localhost:3000/api/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt: text }),
