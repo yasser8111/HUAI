@@ -1,9 +1,8 @@
 import { config } from "dotenv";
 import { aiProfile } from "./aiProfile.js";
+config();
 
-config(); 
-
-const GROQ_API = "https://api/groq.com/openai/v1/chat/completions";
+const GROQ_API = "https://api.groq.com/openai/v1/chat/completions";
 const API_KEY = process.env.GROQ_API_KEY;
 
 export async function askAI(prompt, options = {}) {
