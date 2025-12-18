@@ -1,4 +1,4 @@
-import { askAI } from "../public/ai.mjs";
+import { askAI } from "../ai.mjs";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
