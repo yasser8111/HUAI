@@ -4,9 +4,9 @@
     "express": "^5.2.1",
     "groq": "^5.0.1"
   },
-  "name": "ai_chat",
+  "name": "huai",
   "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "description": "",
   "main": "ai.js",
   "scripts": {
