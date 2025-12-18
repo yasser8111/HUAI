@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HUAI - chat</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="buttons">
+          <a class="btn" href="./info.html">
+            <i class="fa-solid fa-info" title="معلومات"></i>
+          </a>
+          <button class="btn" id="theme-btn" title="تبديل الوضع">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+          </button>
+        </div>
+        <h3>HUAI</h3>
+      </div>
+    </header>
+
+    <main id="chat-container">
+      <div class="container">
+        <div class="message ai">
+          مرحباً! أنا HUAI، هنا لمساعدتك في فهم المواد الدراسية وحل المسائل.
+        </div>
+      </div>
+    </main>
+
+    <div class="input-area">
+      <div class="input-bar container">
+        <button class="send btn" id="send-btn">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+        <textarea
+          id="user-input"
+          placeholder="اكتب هنا..."
+          autocomplete="off"
+        ></textarea>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-container container">
+        <div class="socials">
+          <a href="https://github.com/yasser8111" title="GitHub"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          <a href="https://wa.me/967739770762" title="Wahtsapp"
+            ><i class="fa-brands fa-whatsapp"></i
+          ></a>
+          <a href="https://www.instagram.com/ysrnhdi811" title="Email"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="./mian.js"></script>
+  </body>
+</html>
