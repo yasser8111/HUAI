@@ -1,18 +1,9 @@
 {
-  "dependencies": {
-    "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "groq": "^5.0.1"
-  },
   "name": "huai",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
-  "main": "ai.js",
-  "scripts": {
-    "start": "node server.mjs"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "groq": "^5.0.1"
+  }
 }
