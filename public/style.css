@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Kufi+Arabic:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Kufi+Arabic:wght@100..900&display=swap");
+@import url("./message.css");
 
 :root {
   --logo-font: "Audiowide", sans-serif;
@@ -121,85 +122,6 @@ header .container {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-.message {
-  max-width: 80%;
-  padding: 12px 18px;
-  border-radius: 18px;
-  line-height: 1.6;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 4px var(--shadow-color);
-  word-wrap: break-word;
-
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.user {
-  align-self: flex-start;
-  background: var(--accent-color);
-  color: var(--primary-bg);
-  border-radius: 18px 4px 18px 18px;
-  animation: messageInLeft 0.3s forwards;
-}
-
-.ai {
-  align-self: flex-end;
-  background: var(--secondary-bg);
-  color: var(--primary-text);
-  border-radius: 4px 18px 18px 18px;
-  border: 1px solid var(--border-color);
-  animation: messageInRight 0.3s forwards;
-}
-
-.ai code {
-  color: var(--accent-color);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: var(--code-font);
-  font-weight: 400;
-  font-size: 0.9rem;
-  direction: ltr; 
-}
-
-.ai pre {
-  background-color: var(--primary-bg);
-  color: var(--secondary-text);
-  padding: 10px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-family: monospace;
-  font-size: 0.9rem;
-  direction: ltr;
-}
-
-body.dark-mode .ai code,
-body.dark-mode .ai pre {
-  background-color: #2a2a2a; 
-  color: #f1f1f1; 
-}
-
-@keyframes messageInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(10px) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes messageInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(-10px) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
 }
 
 .input-area {
