@@ -11,7 +11,6 @@
   },
   "scripts": {
     "dev": "vercel dev",
-    "start": "node api/ask.js",
     "vercel-build": "echo 'No build step required'"
   }
 }
