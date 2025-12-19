@@ -65,14 +65,14 @@ if (themeBtn) {
     div.className = `message ${sender}`;
 
     if (sender === "ai") {
-      div.innerHTML = marked.parse(text);
+    div.innerHTML = marked.parse(text);
 
-      if (div.querySelector("code")) {
-        div.classList.add("ai-with-code");
-      }
-    } else {
-      div.innerText = text;
+    if (div.querySelector("pre code")) {
+      div.classList.add("ai-with-code");
     }
+  } else {
+    div.innerText = text;
+  }
 
     chatContainer.appendChild(div);
     chatContainer.scrollTo({
