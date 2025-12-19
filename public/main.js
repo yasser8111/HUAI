@@ -23,16 +23,6 @@ function resetTextarea() {
   inputField.style.height = baseHeight + "px";
 }
 
-// Function to remove basic Markdown formatting (**bold**, *italic*, `code`)
-function cleanMarkdown(text) {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, "$1") // Remove **bold**
-    .replace(/__(.*?)__/g, "$1") // Remove __bold__
-    .replace(/\*(.*?)\*/g, "$1") // Remove *italic*
-    .replace(/_(.*?)_/g, "$1") // Remove _italic_
-    .replace(/`(.*?)`/g, "$1"); // Remove `code`
-}
-
 // Restore saved theme from localStorage
 const savedTheme = localStorage.getItem("theme");
 if (themeBtn) {
@@ -71,25 +61,29 @@ if (themeBtn) {
 
   // Function to add a message to chat
   function addMessage(text, sender) {
-    if (sender === "ai") {
-      text = cleanMarkdown(text);
-    }
-    const div = document.createElement("div");
-    div.className = `message ${sender}`;
-    div.innerText = text;
-    chatContainer.appendChild(div);
-    chatContainer.scrollTo({
-      top: chatContainer.scrollHeight,
-      behavior: "smooth",
-    });
+  const div = document.createElement("div");
+  div.className = `message ${sender}`;
+
+  if (sender === "ai") {
+    div.innerHTML = marked.parse(text);
+  } else {
+    div.innerText = text; 
   }
+
+  chatContainer.appendChild(div);
+  chatContainer.scrollTo({
+    top: chatContainer.scrollHeight,
+    behavior: "smooth",
+  });
+}
+
 
   // Function to send a message
   async function sendMessage() {
-    const inputText = inputField.value.trim(); // ✅ Use a different variable name
+    const inputText = inputField.value.trim(); 
     if (!inputText) return;
 
-    addMessage(inputText, "user"); // Show user message
+    addMessage(inputText, "user"); 
     resetTextarea();
 
     const loadingMessage = document.createElement("div");
@@ -104,18 +98,18 @@ if (themeBtn) {
         body: JSON.stringify({ prompt: inputText }),
       });
 
-      const serverText = await res.text(); // ✅ renamed to avoid conflict
+      const serverText = await res.text(); 
 
       if (!res.ok) {
-        throw new Error(serverText); // Throw server error as exception
+        throw new Error(serverText); 
       }
 
-      const data = JSON.parse(serverText); // Convert text to JSON
+      const data = JSON.parse(serverText); 
       loadingMessage.remove();
-      addMessage(data.response, "ai"); // Show AI response
+      addMessage(data.response, "ai"); 
     } catch (err) {
       loadingMessage.remove();
-      addMessage("حدث خطأ: " + err.message, "ai"); // Show error in chat
+      addMessage("حدث خطأ: " + err.message, "ai"); 
     }
   }
 
