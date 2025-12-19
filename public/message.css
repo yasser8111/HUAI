@@ -44,10 +44,7 @@ body.dark-mode {
   border-radius: 4px 18px 18px 18px;
   border: 1px solid var(--border-color);
   animation: messageInRight 0.3s forwards;
-  text-align: right;
-  direction: rtl;
 }
-
 .ai pre {
   background: var(--code-bg);
   color: var(--code-text);

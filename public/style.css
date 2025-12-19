@@ -133,6 +133,7 @@ header .container {
   max-width: 900px;
   padding: 0 20px;
   z-index: 1000;
+  transition: .3s;
 }
 
 .input-bar {
@@ -179,6 +180,27 @@ button.send {
 button.send:hover {
   background: var(--accent-hover);
   color: var(--primary-bg);
+}
+
+@media (max-width: 576px) {
+  .input-bar {
+    padding: 10px;
+  }
+
+  textarea {
+    padding: 5px;
+    height: 41px;
+    min-height: 40px;
+  }
+
+  button.send {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+  .input-area:has(textarea:focus) {
+    bottom: 30px;
+  }
 }
 
 .info-container {
