@@ -1,9 +1,10 @@
+// Select DOM elements
 const chatContainer = document.querySelector("#chat-container .container");
 const inputField = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 const themeBtn = document.getElementById("theme-btn");
 
-// Textarea height base
+// Textarea base height
 const baseHeight = inputField ? inputField.offsetHeight : 0;
 
 // Automatically adjust textarea height
@@ -16,12 +17,13 @@ if (inputField) {
   });
 }
 
+// Reset textarea after sending a message
 function resetTextarea() {
   inputField.value = "";
   inputField.style.height = baseHeight + "px";
 }
 
-// Restore saved settings from localStorage
+// Restore saved theme from localStorage
 const savedTheme = localStorage.getItem("theme");
 if (themeBtn) {
   if (savedTheme === "dark") {
@@ -31,6 +33,7 @@ if (themeBtn) {
     document.body.classList.remove("dark-mode");
     themeBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
   } else {
+    // If no theme saved, use system preference
     if (
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -42,22 +45,19 @@ if (themeBtn) {
       localStorage.setItem("theme", "light");
     }
   }
-  // Change mode when the button is pressed
+
+  // Toggle theme when button is clicked
   function themeToggle() {
     if (!themeBtn) return;
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
-    themeBtn.innerHTML = `<i class="fa-solid ${
-      isDark ? "fa-sun" : "fa-moon"
-    }"></i>`;
+    themeBtn.innerHTML = `<i class="fa-solid ${isDark ? "fa-sun" : "fa-moon"}"></i>`;
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }
 
-  if (themeBtn) {
-    themeBtn.onclick = themeToggle;
-    themeBtn.onclick = themeToggle;
-  }
-  // Add a message to the chat
+  themeBtn.onclick = themeToggle; // Attach toggle function
+
+  // Function to add a message to chat
   function addMessage(text, sender) {
     const div = document.createElement("div");
     div.className = `message ${sender}`;
@@ -69,12 +69,12 @@ if (themeBtn) {
     });
   }
 
-  // Send a message
+  // Function to send a message
   async function sendMessage() {
-    const text = inputField.value.trim();
-    if (!text) return;
+    const inputText = inputField.value.trim(); // ✅ Use a different variable name
+    if (!inputText) return;
 
-    addMessage(text, "user");
+    addMessage(inputText, "user"); // Show user message
     resetTextarea();
 
     const loadingMessage = document.createElement("div");
@@ -86,26 +86,25 @@ if (themeBtn) {
       const res = await fetch("/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: text }),
+        body: JSON.stringify({ prompt: inputText }),
       });
 
-      const text = await res.text();
+      const serverText = await res.text(); // ✅ renamed to avoid conflict
 
       if (!res.ok) {
-        throw new Error(text);
+        throw new Error(serverText); // Throw server error as exception
       }
-      
-      const data = JSON.parse(text);
 
+      const data = JSON.parse(serverText); // Convert text to JSON
       loadingMessage.remove();
-      addMessage(data.response, "ai");
+      addMessage(data.response, "ai"); // Show AI response
     } catch (err) {
       loadingMessage.remove();
-      addMessage("حدث خطأ: " + err.message, "ai");
+      addMessage("حدث خطأ: " + err.message, "ai"); // Show error in chat
     }
   }
 
-  // Message sending events
+  // Event listeners for sending messages
   if (sendBtn && inputField) {
     sendBtn.addEventListener("click", sendMessage);
     inputField.addEventListener("keydown", (e) => {
