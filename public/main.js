@@ -89,11 +89,13 @@ if (themeBtn) {
         body: JSON.stringify({ prompt: text }),
       });
 
-      const data = await res.json();
+      const text = await res.text();
 
       if (!res.ok) {
-        throw new Error(data.response || "خطأ في الخادم");
+        throw new Error(text);
       }
+      
+      const data = JSON.parse(text);
 
       loadingMessage.remove();
       addMessage(data.response, "ai");
