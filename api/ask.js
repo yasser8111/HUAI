@@ -8,14 +8,14 @@ export default async function handler(req, res) {
   try {
     const { prompt } = req.body;
 
-    if (!prompt || typeof prompt !== "string") {
-      return res.status(400).json({ error: "Valid prompt is required" });
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
     }
 
     const response = await askAI(prompt);
     res.status(200).json({ response });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to process request" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
