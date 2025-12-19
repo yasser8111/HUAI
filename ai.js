@@ -32,7 +32,7 @@
 //   return content;
 // }
 import Groq from "groq";
-import { aiProfile } from "../aiProfile.js";
+import { aiProfile } from "./aiProfile.js";
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
