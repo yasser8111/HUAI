@@ -163,8 +163,8 @@ header .container {
 }
 
 .ai pre {
-  background-color: var(--secondary-bg);
-  color: var(--primary-text);
+  background-color: var(--primary-bg);
+  color: var(--secondary-text);
   padding: 10px;
   border-radius: 8px;
   overflow-x: auto;
