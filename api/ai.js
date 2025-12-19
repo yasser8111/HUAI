@@ -1,7 +1,8 @@
-import { config } from "dotenv";
-config();
+import "dotenv/config";
+import { aiProfile } from "../aiProfile.js";
 
 const memory = [];
+const MAX_MESSAGES = 6;
 
 export async function askAI(prompt) {
   const apiKey = process.env.GROQ_API_KEY;
@@ -9,7 +10,7 @@ export async function askAI(prompt) {
 
   memory.push({ role: "user", content: prompt });
 
-  if (memory.length > 10) memory.shift();
+  if (memory.length > MAX_MESSAGES) memory.shift();
 
   try {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -20,10 +21,7 @@ export async function askAI(prompt) {
       },
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
-        messages: [
-          { role: "system", content: "You are HUAI, a helpful AI assistant for students." },
-          ...memory,
-        ],
+        messages: [{ role: "system", content: aiProfile }, ...memory],
         temperature: 0,
       }),
     });
@@ -35,8 +33,9 @@ export async function askAI(prompt) {
       throw new Error(data.error?.message || "Groq API returned an error");
     }
 
-    const aiResponse = data.choices?.[0]?.message?.content || "No response from AI";
-    
+    const aiResponse =
+      data.choices?.[0]?.message?.content || "No response from AI";
+
     memory.push({ role: "assistant", content: aiResponse });
 
     return aiResponse;

@@ -65,14 +65,24 @@ if (themeBtn) {
     div.className = `message ${sender}`;
 
     if (sender === "ai") {
-    div.innerHTML = marked.parse(text);
+      div.innerHTML = marked.parse(text);
 
-    if (div.querySelector("pre code")) {
-      div.classList.add("ai-with-code");
+      // Wrap tables for horizontal scrolling
+      div.querySelectorAll("table").forEach((table) => {
+        if (table.closest(".table-wrapper")) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "table-wrapper";
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+
+        // optional: center small tables
+        if (table.offsetWidth < wrapper.clientWidth)
+          wrapper.classList.add("center");
+      });
+    } else {
+      div.innerText = text;
     }
-  } else {
-    div.innerText = text;
-  }
 
     chatContainer.appendChild(div);
     chatContainer.scrollTo({

@@ -87,8 +87,37 @@ body.dark-mode {
   border-radius: 6px;
 }
 
-.ai table {
+.table-wrapper {
+  max-width: 100%;
   overflow-x: auto;
+  margin: 8px 0;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+}
+
+.ai table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  max-width: 100%;
+}
+
+.ai th,
+.ai td {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  text-align: start;
+  white-space: nowrap;
+}
+
+.table-wrapper.center {
+  display: flex;
+  justify-content: center;
+}
+
+body.dark-mode .ai th,
+body.dark-mode .ai td {
+  border-color: var(--primary-text);
 }
 
 .ai hr {
