@@ -61,29 +61,32 @@ if (themeBtn) {
 
   // Function to add a message to chat
   function addMessage(text, sender) {
-  const div = document.createElement("div");
-  div.className = `message ${sender}`;
+    const div = document.createElement("div");
+    div.className = `message ${sender}`;
 
-  if (sender === "ai") {
-    div.innerHTML = marked.parse(text);
-  } else {
-    div.innerText = text; 
+    if (sender === "ai") {
+      div.innerHTML = marked.parse(text);
+
+      if (div.querySelector("code")) {
+        div.classList.add("ai-with-code");
+      }
+    } else {
+      div.innerText = text;
+    }
+
+    chatContainer.appendChild(div);
+    chatContainer.scrollTo({
+      top: chatContainer.scrollHeight,
+      behavior: "smooth",
+    });
   }
-
-  chatContainer.appendChild(div);
-  chatContainer.scrollTo({
-    top: chatContainer.scrollHeight,
-    behavior: "smooth",
-  });
-}
-
 
   // Function to send a message
   async function sendMessage() {
-    const inputText = inputField.value.trim(); 
+    const inputText = inputField.value.trim();
     if (!inputText) return;
 
-    addMessage(inputText, "user"); 
+    addMessage(inputText, "user");
     resetTextarea();
 
     const loadingMessage = document.createElement("div");
@@ -98,18 +101,18 @@ if (themeBtn) {
         body: JSON.stringify({ prompt: inputText }),
       });
 
-      const serverText = await res.text(); 
+      const serverText = await res.text();
 
       if (!res.ok) {
-        throw new Error(serverText); 
+        throw new Error(serverText);
       }
 
-      const data = JSON.parse(serverText); 
+      const data = JSON.parse(serverText);
       loadingMessage.remove();
-      addMessage(data.response, "ai"); 
+      addMessage(data.response, "ai");
     } catch (err) {
       loadingMessage.remove();
-      addMessage("حدث خطأ: " + err.message, "ai"); 
+      addMessage("حدث خطأ: " + err.message, "ai");
     }
   }
 
