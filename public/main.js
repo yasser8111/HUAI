@@ -23,6 +23,16 @@ function resetTextarea() {
   inputField.style.height = baseHeight + "px";
 }
 
+// Function to remove basic Markdown formatting (**bold**, *italic*, `code`)
+function cleanMarkdown(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, "$1") // Remove **bold**
+    .replace(/__(.*?)__/g, "$1") // Remove __bold__
+    .replace(/\*(.*?)\*/g, "$1") // Remove *italic*
+    .replace(/_(.*?)_/g, "$1") // Remove _italic_
+    .replace(/`(.*?)`/g, "$1"); // Remove `code`
+}
+
 // Restore saved theme from localStorage
 const savedTheme = localStorage.getItem("theme");
 if (themeBtn) {
@@ -51,7 +61,9 @@ if (themeBtn) {
     if (!themeBtn) return;
     document.body.classList.toggle("dark-mode");
     const isDark = document.body.classList.contains("dark-mode");
-    themeBtn.innerHTML = `<i class="fa-solid ${isDark ? "fa-sun" : "fa-moon"}"></i>`;
+    themeBtn.innerHTML = `<i class="fa-solid ${
+      isDark ? "fa-sun" : "fa-moon"
+    }"></i>`;
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }
 
@@ -59,6 +71,9 @@ if (themeBtn) {
 
   // Function to add a message to chat
   function addMessage(text, sender) {
+    if (sender === "ai") {
+      text = cleanMarkdown(text);
+    }
     const div = document.createElement("div");
     div.className = `message ${sender}`;
     div.innerText = text;
