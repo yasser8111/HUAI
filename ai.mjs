@@ -2,33 +2,25 @@ import { config } from "dotenv";
 import { aiProfile } from "./aiProfile.js";
 config();
 
-const GROQ_API = "https://api.groq.com/openai/v1/chat/completions";
-const API_KEY = process.env.GROQ_API_KEY;
-
-export async function askAI(prompt, options = {}) {
-  const body = {
-    model: "llama-3.3-70b-versatile",
-    messages: [
-      { role: "system", content: aiProfile },
-      { role: "user", content: prompt },
-    ],
-    ...options,
-  };
-
-  const res = await fetch(GROQ_API, {
+export async function askAI(prompt) {
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${API_KEY}`,
+      Authorization: `Bearer ${process.env.GROQ_API_KEY.trim()}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      model: "openai/gpt-oss-120b",
+      messages: [
+        { role: "system", content: aiProfile },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0,
+    }),
   });
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Groq API error ${res.status}: ${text}`);
-  }
-
   const data = await res.json();
-  return data.choices?.[0]?.message?.content ?? "لا يوجد رد";
+  if (!res.ok) throw new Error(data.error?.message || "API Error");
+
+  return data.choices[0].message.content;
 }

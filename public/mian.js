@@ -80,17 +80,23 @@ async function sendMessage() {
   chatContainer.appendChild(loadingMessage);
 
   try {
-    const res = await fetch("http://localhost:3000/api/ask", {
+    const res = await fetch("/api/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt: text }),
     });
+
     const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.response || "خطأ في الخادم");
+    }
+
     loadingMessage.remove();
     addMessage(data.response, "ai");
   } catch (err) {
     loadingMessage.remove();
-    addMessage("حدث خطأ أثناء التواصل مع الخادم.", "ai");
+    addMessage("حدث خطأ: " + err.message, "ai");
   }
 }
 

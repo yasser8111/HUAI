@@ -1,14 +1,17 @@
-// server.js
 import express from "express";
 import { askAI } from "./ai.mjs";
 
 const app = express();
 app.use(express.json());
+app.use(express.static("public"));
 
 app.post("/api/ask", async (req, res) => {
-  const { prompt } = req.body;
-  const response = await askAI(prompt);
-  res.json({ response });
+  try {
+    const response = await askAI(req.body.prompt);
+    res.json({ response });
+  } catch (err) {
+    res.status(500).json({ response: err.message });
+  }
 });
 
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+app.listen(3000, () => console.log("http://localhost:3000"));
