@@ -133,8 +133,7 @@ header .container {
   max-width: 900px;
   padding: 0 20px;
   z-index: 1000;
-  transition: .3s;
-}
+  transition: bottom .3s;}
 
 .input-bar {
   padding: 10px;

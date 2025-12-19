@@ -87,6 +87,10 @@ body.dark-mode {
   border-radius: 6px;
 }
 
+.ai table {
+  overflow-x: auto;
+}
+
 .ai hr {
   margin-block: 30px;
   background: var(--primary-bg);

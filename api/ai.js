@@ -1,10 +1,15 @@
-// api/ai.js
 import { config } from "dotenv";
 config();
+
+const memory = [];
 
 export async function askAI(prompt) {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) throw new Error("GROQ_API_KEY is not set");
+
+  memory.push({ role: "user", content: prompt });
+
+  if (memory.length > 10) memory.shift();
 
   try {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -14,10 +19,10 @@ export async function askAI(prompt) {
         Authorization: `Bearer ${apiKey.trim()}`,
       },
       body: JSON.stringify({
-        model: "openai/gpt-oss-120b",
+        model: "llama-3.3-70b-versatile",
         messages: [
           { role: "system", content: "You are HUAI, a helpful AI assistant for students." },
-          { role: "user", content: prompt },
+          ...memory,
         ],
         temperature: 0,
       }),
@@ -30,9 +35,13 @@ export async function askAI(prompt) {
       throw new Error(data.error?.message || "Groq API returned an error");
     }
 
-    return data.choices?.[0]?.message?.content || "No response from AI";
+    const aiResponse = data.choices?.[0]?.message?.content || "No response from AI";
+    
+    memory.push({ role: "assistant", content: aiResponse });
+
+    return aiResponse;
   } catch (err) {
     console.error("askAI fetch error:", err);
-    throw err; // rethrow to be caught in ask.js
+    throw err;
   }
 }
