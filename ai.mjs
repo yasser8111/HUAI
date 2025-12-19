@@ -3,11 +3,17 @@ import { aiProfile } from "./aiProfile.js";
 config();
 
 export async function askAI(prompt) {
+
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    throw new Error("GROQ_API_KEY environment variable is not set");
+  }
+  
   const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.GROQ_API_KEY.trim()}`,
+      Authorization: `Bearer ${apiKey.trim()}`,
     },
     body: JSON.stringify({
       model: "openai/gpt-oss-120b",
@@ -21,6 +27,7 @@ export async function askAI(prompt) {
 
   const data = await res.json();
   if (!res.ok) throw new Error(data.error?.message || "API Error");
-
-  return data.choices[0].message.content;
+  const content = data.choices?.[0]?.message?.content;
+  if (!content) {throw new Error("Unexpected API response structure");}
+  return content;
 }

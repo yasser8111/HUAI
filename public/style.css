@@ -96,6 +96,7 @@ header .container {
 .btn:hover {
   color: var(--accent-hover);
 }
+.btn:focus-visible,
 .btn:active {
   transform: scale(0.95);
 }
@@ -256,7 +257,7 @@ footer {
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .footer-container .socials {

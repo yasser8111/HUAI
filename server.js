@@ -7,10 +7,15 @@ app.use(express.static("public"));
 
 app.post("/api/ask", async (req, res) => {
   try {
-    const response = await askAI(req.body.prompt);
+    const { prompt } = req.body;
+    if (!prompt || typeof prompt !== "string") {
+      return res.status(400).json({ error: "Valid prompt is required" });
+    }
+    const response = await askAI(prompt);
     res.json({ response });
   } catch (err) {
-    res.status(500).json({ response: err.message });
+    console.error("AI request failed:", err);
+    res.status(500).json({ error: "Failed to process request" });
   }
 });
 
