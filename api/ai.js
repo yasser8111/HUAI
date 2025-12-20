@@ -11,6 +11,7 @@ import {
   FAST_PROMPT_LIMIT,
   DEFAULT_TEMPERATURE,
   AI_PROFILE,
+  MAX_PROMPT_LENGTH,
 } from "../config.js";
 
 const memoryCache = new LRUCache({
@@ -39,12 +40,22 @@ function addMessage(memory, role, content) {
 export async function askAI(sessionId, prompt, options = {}) {
   validateEnv();
 
-  if (typeof prompt !== "string" || !prompt.trim()) {
+  if (typeof sessionId !== "string" || !sessionId.trim()) {
+    throw new Error("Invalid sessionId");
+  }
+
+  const trimmedPrompt = prompt.trim();
+
+  if (typeof prompt !== "string" || !trimmedPrompt) {
     throw new Error("Invalid prompt");
   }
 
+  if (trimmedPrompt.length > MAX_PROMPT_LENGTH) {
+    throw new Error("Prompt exceeds maximum length");
+  }
+
   const memory = getMemory(sessionId);
-  addMessage(memory, "user", prompt);
+  addMessage(memory, "user", trimmedPrompt);
 
   const model = options.model || selectModel(prompt);
   const temperature = options.temperature ?? DEFAULT_TEMPERATURE;

@@ -42,8 +42,3 @@
   }
 }
 
-body.dark-mode .info-container {
-  background: var(--secondary-bg);
-  color: var(--primary-text);
-  box-shadow: 0 4px 12px var(--shadow-color);
-}

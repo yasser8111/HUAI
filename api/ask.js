@@ -17,6 +17,13 @@ export default async function handler(req, res) {
 
     res.status(200).json({ response });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("[API Error]", {
+      error: err.message,
+      stack: err.stack,
+      prompt: req.body?.prompt?.substring(0, 50),
+    });
+    res
+      .status(500)
+      .json({ error: "An error occurred processing your request" });
   }
 }
