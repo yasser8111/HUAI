@@ -29,6 +29,13 @@ body.dark-mode {
   transform: translateY(10px);
 }
 
+@media (max-width: 576px) {
+  .message {
+    max-width: 90%;
+    padding: 8px 14px;
+  }
+}
+
 .user {
   align-self: flex-start;
   background: var(--accent-color);

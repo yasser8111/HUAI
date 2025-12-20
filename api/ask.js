@@ -12,19 +12,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
-    console.log("Received prompt:", prompt);
-
-    // Call AI
-    const response = await askAI(prompt);
-
-    console.log("AI response:", response);
+    // Pass a sessionId (e.g., "default-session") as the first argument
+    const response = await askAI("default-session", prompt);
 
     res.status(200).json({ response });
   } catch (err) {
-    console.error("API/ask error message:", err.message);
-    console.error("Full error object:", err);
-
-    // Send the actual error message temporarily for debugging
     res.status(500).json({ error: err.message });
   }
 }
