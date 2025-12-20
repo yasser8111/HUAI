@@ -39,6 +39,19 @@ body.dark-mode {
   font-family: "Noto Kufi Arabic", sans-serif;
   scrollbar-color: var(--accent-color) var(--primary-bg);
   scrollbar-width: thin;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  outline: none;
+}
+
+a:focus-visible,
+a:focus,
+button:focus-visible,
+button:focus {
+  outline: none;
 }
 
 body {

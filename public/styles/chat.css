@@ -85,6 +85,6 @@
     min-width: 40px;
   }
   .input-area:has(textarea:focus) {
-    bottom: 30px;
+    bottom: 20px;
   }
 }
