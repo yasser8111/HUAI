@@ -12,10 +12,9 @@ footer {
 
 .footer-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
-  text-align: center;
   font-size: 0.875rem;
 }
 
