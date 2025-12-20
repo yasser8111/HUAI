@@ -40,11 +40,17 @@ body.dark-mode footer {
 }
 
 @media (max-width: 576px) {
+  footer {
+    padding: 5px 0;
+  }
   .footer-container p {
     line-height: 1.2;
     font-size: 0.75rem;
     max-width: 250px;
     padding-left: 10px;
     text-align: start;
+  }
+  .footer-container .socials {
+    gap: 10px;
   }
 }
