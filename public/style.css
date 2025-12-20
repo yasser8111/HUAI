@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Kufi+Arabic:wght@100..900&display=swap");
+@import url("./styles/chat.css");
+@import url("./styles/chat.css");
+@import url("./styles/message.css");
+@import url("./styles/info.css");
+@import url("./styles/footer.css");
+
+:root {
+  --logo-font: "Audiowide", sans-serif;
+  --code-font: "Google Sans Code", monospace;
+
+  --primary-bg: #ffffff;
+  --secondary-bg: #f7f7f8;
+  --primary-text: #0f0f0f;
+  --secondary-text: #5f6368;
+  --accent-color: #2a2a2a;
+  --accent-hover: #000000;
+  --border-color: #e0e0e0;
+  --light-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode {
+  --primary-bg: #121212;
+  --secondary-bg: #1e1e1e;
+  --primary-text: #eaeaea;
+  --secondary-text: #9aa0a6;
+  --accent-color: #e0e0e0;
+  --accent-hover: #ffffff;
+  --border-color: #2a2a2a;
+  --light-color: #1a1a1a;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  scrollbar-color: var(--accent-color) var(--primary-bg);
+  scrollbar-width: thin;
+}
+
+body {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo {
+  font-family: var(--logo-font);
+  font-weight: bold;
+  font-style: normal;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  background: var(--light-color);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--accent-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+
+.btn:hover {
+  color: var(--accent-hover);
+}
+.btn:focus-visible,
+.btn:active {
+  transform: scale(0.95);
+}
