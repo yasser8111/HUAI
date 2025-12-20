@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Noto+Kufi+Arabic:wght@100..900&display=swap");
-@import url("./styles/chat.css");
-@import url("./styles/chat.css");
+@import url("./styles/header.css");
 @import url("./styles/message.css");
 @import url("./styles/info.css");
+@import url("./styles/chat.css");
 @import url("./styles/footer.css");
 
 :root {
