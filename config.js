@@ -20,7 +20,7 @@ export const MODELS = {
 };
 
 // Maximum prompt length to decide using the FAST model
-export const FAST_PROMPT_LIMIT = 100;
+export const FAST_PROMPT_LIMIT = 30;
 
 // Default temperature for AI responses (controls creativity/randomness)
 export const DEFAULT_TEMPERATURE = 0.2;

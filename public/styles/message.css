@@ -16,6 +16,10 @@ body.dark-mode {
   --code-inline-text: #ff7b72;
 }
 
+a {
+  color: var(--code-inline-text);
+}
+
 .message {
   max-width: 80%;
   padding: 12px 18px;

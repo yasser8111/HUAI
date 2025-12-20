@@ -9,6 +9,9 @@
   --logo-font: "Audiowide", sans-serif;
   --code-font: "Google Sans Code", monospace;
 
+  --selection-bg: #d6336ca2;
+  --selection-color: #fff;
+
   --primary-bg: #ffffff;
   --secondary-bg: #f7f7f8;
   --primary-text: #0f0f0f;
@@ -21,6 +24,8 @@
 }
 
 body.dark-mode {
+  --selection-bg: #ff7b72a2;
+
   --primary-bg: #121212;
   --secondary-bg: #1e1e1e;
   --primary-text: #eaeaea;
@@ -40,6 +45,11 @@ body.dark-mode {
   scrollbar-color: var(--accent-color) var(--primary-bg);
   scrollbar-width: thin;
   -webkit-tap-highlight-color: transparent;
+}
+
+*::selection {
+  background: var(--selection-bg);
+  color: var(--selection-color);
 }
 
 button,

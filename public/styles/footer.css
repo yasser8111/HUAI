@@ -21,7 +21,6 @@ footer {
 .footer-container .socials {
   display: flex;
   gap: 15px;
-  margin-top: 5px;
 }
 
 .footer-container .socials a {
@@ -47,10 +46,13 @@ body.dark-mode footer {
     line-height: 1.2;
     font-size: 0.75rem;
     max-width: 250px;
-    padding-left: 10px;
     text-align: start;
   }
   .footer-container .socials {
     gap: 10px;
+  }
+  .footer-container .socials a {
+    font-size: 1.5rem;
+    padding-inline: 5px;
   }
 }
