@@ -1,4 +1,3 @@
-// api/ask.js
 import { askAI } from "./ai.js";
 
 export default async function handler(req, res) {
@@ -12,7 +11,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
-    // Pass a sessionId (e.g., "default-session") as the first argument
     const response = await askAI("default-session", prompt);
 
     res.status(200).json({ response });
