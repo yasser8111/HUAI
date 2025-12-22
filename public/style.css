@@ -7,10 +7,9 @@
 
 :root {
   --logo-font: "Audiowide", sans-serif;
-  --code-font: "Google Sans Code", monospace;
-
-  --selection-bg: #d6336ca2;
-  --selection-color: #fff;
+  --selection-bg: rgba(255, 123, 114, 0.5);
+  --selection-color: #ffffff;
+  --accent-link: #d73a49;
 
   --primary-bg: #ffffff;
   --secondary-bg: #f7f7f8;
@@ -24,8 +23,6 @@
 }
 
 body.dark-mode {
-  --selection-bg: #ff7b72a2;
-
   --primary-bg: #121212;
   --secondary-bg: #1e1e1e;
   --primary-text: #eaeaea;
@@ -43,9 +40,10 @@ body.dark-mode {
   box-sizing: border-box;
   font-family: "Noto Kufi Arabic", sans-serif;
   scrollbar-color: var(--accent-color) transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
-*::selection {
+::selection {
   background: var(--selection-bg);
   color: var(--selection-color);
 }

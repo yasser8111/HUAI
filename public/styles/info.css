@@ -5,7 +5,7 @@
   margin: 20px auto;
   max-width: 750px;
   color: var(--primary-text);
-  
+
   line-height: 1.6;
   font-size: 0.95rem;
   word-wrap: break-word;
@@ -24,6 +24,10 @@
   margin: 10px;
   line-height: 1.7;
   font-size: 1rem;
+}
+
+.info-container a {
+  color: var(--accent-link);
 }
 
 .info-container ul {

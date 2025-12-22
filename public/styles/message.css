@@ -1,16 +1,16 @@
 :root {
-  /* Code background */
   --code-bg: #f6f8fa;
+  --code-font: "Google Sans Code", "JetBrains Mono", "Fira Code",
+    "IBM Plex Mono", "Cascadia Code", "Courier New", monospace;
 
-  /* Syntax colors (Day mode) */
-  --syntax-keyword: #d73a49; /* keywords: واضح وقوي */
-  --syntax-string: #22863a; /* strings: أخضر مريح */
-  --syntax-number: #005cc5; /* numbers */
-  --syntax-comment: #6a737d; /* comments: هادئة وغير مزعجة */
-  --syntax-function: #6f42c1; /* functions */
-  --syntax-variable: #e36209; /* variables */
-  --syntax-class: #005cc5; /* classes */
-  --syntax-operator: #d73a49; /* operators */
+  --syntax-keyword: #d73a49;
+  --syntax-string: #22863a;
+  --syntax-number: #005cc5;
+  --syntax-comment: #6a737d;
+  --syntax-function: #6f42c1;
+  --syntax-variable: #e36209;
+  --syntax-class: #005cc5;
+  --syntax-operator: #d73a49;
 }
 
 body.dark-mode {
@@ -24,10 +24,6 @@ body.dark-mode {
   --syntax-variable: #ffa657;
   --syntax-class: #d2a8ff;
   --syntax-operator: #ff7b72;
-}
-
-a {
-  color: var(--code-inline-text);
 }
 
 .message {
@@ -69,7 +65,7 @@ a {
   position: relative;
   background: var(--code-bg);
   color: var(--primary-text);
-  padding: 14px;
+  padding: 40px 14px 14px 14px;
   border-radius: 10px;
 }
 
@@ -77,16 +73,32 @@ a {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
   outline: none;
   border: none;
   background: transparent;
   color: var(--primary-text);
   cursor: pointer;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.ai .copy-btn i {
+  text-align: center;
+  pointer-events: none;
+  line-height: 1;
+  display: block;
+}
+
+.ai .copy-btn:hover {
+  background: var(--secondary-bg);
+}
+
 .ai pre {
-  font-family: var(--code-font);
   font-size: 0.9rem;
   line-height: 1.6;
 
@@ -95,10 +107,10 @@ a {
 }
 
 .ai code {
+  font-family: var(--code-font) !important;
   overflow-y: hidden;
   background: var(--code-inline-bg);
   padding: 2px 6px;
-  font-family: var(--code-font);
   font-size: 0.85rem;
   scrollbar-color: var(--secondary-bg) transparent;
   direction: ltr;
@@ -167,6 +179,8 @@ a {
 .ai p code {
   color: var(--syntax-variable) !important;
   font-weight: bold;
+  background: hsla(24, 92%, 46%, 0.05);
+  border-radius: 5px;
 }
 
 .ai pre::-webkit-scrollbar {
