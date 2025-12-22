@@ -7,7 +7,7 @@ export const MAX_MESSAGES = 6;
 export const MAX_SESSIONS = 1000;
 
 // Maximum tokens the AI can use
-export const MAX_TOKENS = 400;
+export const MAX_TOKENS = 600;
 
 // API key for accessing Hugging Face Inference API
 export const API_KEY = process.env.HF_API_KEY?.trim();

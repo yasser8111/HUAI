@@ -1,14 +1,16 @@
 :root {
+  /* Code background */
   --code-bg: #f6f8fa;
 
-  --syntax-keyword: #cf222e;
-  --syntax-string: #0a3069;
-  --syntax-number: #0550ae;
-  --syntax-comment: #6e7781;
-  --syntax-function: #8250df;
-  --syntax-variable: #953800;
-  --syntax-class: #116329;
-  --syntax-operator: #0550ae;
+  /* Syntax colors (Day mode) */
+  --syntax-keyword: #d73a49; /* keywords: واضح وقوي */
+  --syntax-string: #22863a; /* strings: أخضر مريح */
+  --syntax-number: #005cc5; /* numbers */
+  --syntax-comment: #6a737d; /* comments: هادئة وغير مزعجة */
+  --syntax-function: #6f42c1; /* functions */
+  --syntax-variable: #e36209; /* variables */
+  --syntax-class: #005cc5; /* classes */
+  --syntax-operator: #d73a49; /* operators */
 }
 
 body.dark-mode {
@@ -95,12 +97,10 @@ a {
 .ai code {
   overflow-y: hidden;
   background: var(--code-inline-bg);
-  color: var(--code-inline-text);
   padding: 2px 6px;
-  border-radius: 6px;
   font-family: var(--code-font);
   font-size: 0.85rem;
-
+  scrollbar-color: var(--secondary-bg) transparent;
   direction: ltr;
   unicode-bidi: embed;
 }
@@ -146,6 +146,7 @@ a {
   color: var(--syntax-function);
 }
 
+.hljs-subst,
 .hljs-variable,
 .hljs-params {
   color: var(--syntax-variable);
@@ -161,11 +162,11 @@ a {
   color: var(--syntax-operator);
 }
 
-.ai pre code .hljs-ln-numbers {
-  color: var(--syntax-comment) !important;
-  opacity: 0.5;
-  padding-left: 10px;
-  user-select: none;
+.ai ol code,
+.ai li code,
+.ai p code {
+  color: var(--syntax-variable) !important;
+  font-weight: bold;
 }
 
 .ai pre::-webkit-scrollbar {

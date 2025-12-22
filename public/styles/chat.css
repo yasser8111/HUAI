@@ -12,7 +12,7 @@
 
 .input-area {
   position: fixed;
-  bottom: 80px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -44,7 +44,6 @@
   background: transparent;
   color: var(--primary-text);
   font-size: 1rem;
-  scrollbar-color: var(--accent-color) var(--secondary-bg);
 }
 
 .input-bar button.send {
@@ -59,7 +58,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
   font-size: 1.2rem;
 }
 

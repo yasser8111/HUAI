@@ -42,9 +42,7 @@ body.dark-mode {
   padding: 0;
   box-sizing: border-box;
   font-family: "Noto Kufi Arabic", sans-serif;
-  scrollbar-color: var(--accent-color) var(--primary-bg);
-  scrollbar-width: thin;
-  -webkit-tap-highlight-color: transparent;
+  scrollbar-color: var(--accent-color) transparent;
 }
 
 *::selection {
@@ -75,10 +73,10 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1500px;
-  margin: 0 auto;
   padding: 0 20px;
+  margin: auto;
 }
+
 .con-medium {
   max-width: 750px;
 }

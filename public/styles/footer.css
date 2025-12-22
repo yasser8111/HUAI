@@ -14,7 +14,7 @@ footer {
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 }
 
 .footer-container .socials {
@@ -37,15 +37,15 @@ footer {
   }
   .footer-container p {
     line-height: 1.2;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     max-width: 250px;
     text-align: start;
   }
   .footer-container .socials {
-    gap: 10px;
+    gap: 5px;
   }
   .footer-container .socials a {
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding-inline: 5px;
   }
 }
