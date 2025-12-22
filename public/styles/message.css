@@ -66,37 +66,24 @@ body.dark-mode {
   position: relative;
   background: var(--code-bg);
   color: var(--primary-text);
-  padding-block: 40px 14px;
+  padding-block: 14px;
   border-radius: 10px;
 }
 
-.ai .copy-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  outline: none;
-  border: none;
-  background: transparent;
-  color: var(--primary-text);
-  cursor: pointer;
-  padding: 5px;
+.code-data {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  color: var(--primary-text);
+  margin-inline: 10px;
 }
 
-.ai .copy-btn i {
-  text-align: center;
-  pointer-events: none;
-  line-height: 1;
-  display: block;
-}
-
-.ai .copy-btn:hover {
-  background: var(--secondary-bg);
+.code-data button {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 40px;
+  height: 40px;
 }
 
 .ai pre {

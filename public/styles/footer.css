@@ -20,16 +20,25 @@ footer {
 
 .footer-container .socials {
   display: flex;
-  gap: 15px;
+  gap: 5px;
 }
 
 .footer-container .socials a {
   color: var(--secondary-text);
   font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
 }
 
 .footer-container .socials a:hover {
   color: var(--accent-hover);
+  background: var(--secondary-bg);
 }
 
 @media (max-width: 576px) {
@@ -41,9 +50,6 @@ footer {
     font-size: 0.6rem;
     max-width: 250px;
     text-align: start;
-  }
-  .footer-container .socials {
-    gap: 5px;
   }
   .footer-container .socials a {
     font-size: 1rem;

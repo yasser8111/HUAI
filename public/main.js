@@ -184,14 +184,15 @@ async function sendMessage() {
     }
 
     const data = JSON.parse(serverResponse);
-    
+
     if (!data.response) {
       throw new Error("Invalid server response format");
     }
 
     // Remove loading indicator and add the actual response
     loadingDiv.remove();
-    addMessage(data.response, "ai");  } catch (err) {
+    addMessage(data.response, "ai");
+  } catch (err) {
     loadingDiv.remove();
     addMessage(`حدث خطأ: ${err.message}`, "ai");
     console.error(err);
@@ -199,34 +200,32 @@ async function sendMessage() {
 }
 
 /**
- * Add copy buttons to code blocks inside a container
+ * Add copy buttons and langguge name to code blocks inside a container
  */
 function addCopyButtons(container) {
   container.querySelectorAll("pre").forEach((pre) => {
     if (pre.parentElement.classList.contains("code-wrapper")) return;
 
+    const code = pre.querySelector("code");
+    const lang = code?.className.split("-")[1] || "code";
+
     const wrapper = document.createElement("div");
     wrapper.className = "code-wrapper";
+    wrapper.innerHTML = `
+    <div class="code-data">
+    <button><i class="fa-regular fa-copy"></i></button>
+      <p>${lang.toUpperCase()}</p>
+    </div>
+    `;
 
-    const button = document.createElement("button");
-    button.className = "copy-btn";
-    button.innerHTML = '<i class="fa-regular fa-copy"></i>';
-
-    button.addEventListener("click", async () => {
-      const code = pre.querySelector("code")?.innerText || "";
-      try {
-        await navigator.clipboard.writeText(code);
-        button.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(() => {
-          button.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 1500);
-      } catch (err) {
-      }
-    });
-
-    pre.parentNode.insertBefore(wrapper, pre);
-    wrapper.appendChild(button);
+    pre.replaceWith(wrapper);
     wrapper.appendChild(pre);
+
+    wrapper.querySelector(".copy-btn").onclick = async (e) => {
+      await navigator.clipboard.writeText(code?.innerText || "");
+      e.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i>';
+      setTimeout(() => e.currentTarget.innerHTML = '<i class="fa-regular fa-copy"></i>', 1500);
+    };
   });
 }
 
