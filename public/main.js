@@ -184,11 +184,14 @@ async function sendMessage() {
     }
 
     const data = JSON.parse(serverResponse);
+    
+    if (!data.response) {
+      throw new Error("Invalid server response format");
+    }
 
     // Remove loading indicator and add the actual response
     loadingDiv.remove();
-    addMessage(data.response, "ai");
-  } catch (err) {
+    addMessage(data.response, "ai");  } catch (err) {
     loadingDiv.remove();
     addMessage(`حدث خطأ: ${err.message}`, "ai");
     console.error(err);
