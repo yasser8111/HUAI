@@ -8,7 +8,7 @@ import {
   API_KEY,
   FETCH_TIMEOUT,
   MODELS,
-  MODEL_THRESHOLDS,
+  FAST_LIMIT,
   DEFAULT_TEMPERATURE,
   AI_PROFILE,
 } from "../config.js";
@@ -20,7 +20,7 @@ import {
 /**
  * In-memory cache using LRU (Least Recently Used) policy
  * to store chat histories for a set number of sessions (MAX_SESSIONS).
- * Each session is kept for 24 hours (ttl: 1 day).
+ * Each session is kept for 1 hours .
  */
 const memoryCache = new LRUCache({
   max: MAX_SESSIONS,
@@ -64,10 +64,8 @@ function addMessage(memory, role, content) {
  */
 function selectSmartModel(prompt) {
   const length = prompt.length;
-  if (length < MODEL_THRESHOLDS.FAST_LIMIT) {
+  if (length < FAST_LIMIT) {
     return MODELS.FAST;
-  } else if (length < MODEL_THRESHOLDS.MEDIUM_LIMIT) {
-    return MODELS.MEDIUM;
   } else {
     return MODELS.SMART;
   }

@@ -20,6 +20,8 @@
   padding: 0 20px;
   z-index: 1000;
   transition: bottom 0.3s;
+  box-shadow: 0 -25px 30px var(--primary-bg);
+  background: var(--primary-bg);
 }
 
 .input-bar {
@@ -67,6 +69,10 @@
 }
 
 @media (max-width: 576px) {
+  .input-area {
+    box-shadow: 0 -15px 20px var(--primary-bg);
+  }
+
   .input-bar {
     padding: 10px;
     gap: 5px;

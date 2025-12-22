@@ -59,13 +59,14 @@ body.dark-mode {
   border-radius: 4px 18px 18px 18px;
   border: 1px solid var(--border-color);
   animation: messageInRight 0.3s forwards;
+  max-width: 100%;
 }
 
 .ai .code-wrapper {
   position: relative;
   background: var(--code-bg);
   color: var(--primary-text);
-  padding: 40px 14px 14px 14px;
+  padding-block: 40px 14px;
   border-radius: 10px;
 }
 
@@ -110,7 +111,7 @@ body.dark-mode {
   font-family: var(--code-font) !important;
   overflow-y: hidden;
   background: var(--code-inline-bg);
-  padding: 2px 6px;
+  padding: 2px 6px 14px 14px;
   font-size: 0.85rem;
   scrollbar-color: var(--secondary-bg) transparent;
   direction: ltr;
@@ -119,7 +120,6 @@ body.dark-mode {
 
 .ai pre code {
   background: transparent;
-  padding: 0;
   color: inherit;
 }
 
@@ -205,6 +205,10 @@ body.dark-mode {
   border-spacing: 0;
   width: max-content;
   max-width: 100%;
+
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
 }
 
 .ai th,
@@ -323,3 +327,20 @@ body.dark-mode {
     transform: translateX(0) scale(1);
   }
 }
+
+/* ===== New style =============================== */
+/* 
+.ai.loading ,
+.ai {
+  align-self: flex-end;
+  text-align: right;
+  color: var(--primary-text);
+  max-width: 100%;
+  animation: messageInRight 0.3s forwards;
+
+  # Not impotent
+  border-radius: 0;
+  border: none;
+  background: transparent;
+} 
+*/

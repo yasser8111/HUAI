@@ -1,4 +1,4 @@
-import { askAI } from "./ai.js";
+import { askAI } from "../ai/ai.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -13,6 +13,7 @@ export default async function handler(req, res) {
 
     const response = await askAI("default-session", prompt);
 
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.status(200).json({ response });
   } catch (err) {
     console.error("[API Error]", {
