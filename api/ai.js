@@ -24,7 +24,7 @@ import {
  */
 const memoryCache = new LRUCache({
   max: MAX_SESSIONS,
-  ttl: 1000 * 60 * 60 * 24, // 24 hours
+  ttl: 1000 * 60 * 60, // 1 hours
 });
 
 /**

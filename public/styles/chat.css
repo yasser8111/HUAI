@@ -25,7 +25,6 @@
 .input-bar {
   padding: 10px !important;
   background: var(--secondary-bg);
-  box-shadow: 0 4px 15px var(--shadow-color);
   display: flex;
   gap: 10px;
   border-radius: 30px;

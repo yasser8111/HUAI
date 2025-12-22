@@ -1,7 +1,5 @@
 :root {
   --code-bg: #f6f8fa;
-  --code-text: #24292f;
-  --code-border: #d0d7de;
 
   --syntax-keyword: #cf222e;
   --syntax-string: #0a3069;
@@ -9,15 +7,12 @@
   --syntax-comment: #6e7781;
   --syntax-function: #8250df;
   --syntax-variable: #953800;
-  --syntax-class: #8250df;
-  --syntax-operator: #cf222e;
+  --syntax-class: #116329;
+  --syntax-operator: #0550ae;
 }
 
-/* Dark Mode */
 body.dark-mode {
   --code-bg: #2a2a2a;
-  --code-text: #c9d1d9;
-  --code-border: #30363d;
 
   --syntax-keyword: #ff7b72;
   --syntax-string: #a5d6ff;
@@ -39,9 +34,7 @@ a {
   border-radius: 18px;
   line-height: 1.6;
   font-size: 0.95rem;
-  box-shadow: 0 2px 4px var(--shadow-color);
   word-wrap: break-word;
-
   opacity: 0;
   transform: translateY(10px);
 }
@@ -73,8 +66,7 @@ a {
 .ai .code-wrapper {
   position: relative;
   background: var(--code-bg);
-  color: var(--code-text);
-  border: 1px solid var(--code-border);
+  color: var(--primary-text);
   padding: 14px;
   border-radius: 10px;
 }

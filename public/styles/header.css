@@ -1,7 +1,6 @@
 header {
-  background: var(--secondary-bg);
+  background: var(--primary-bg);
   padding: 15px 0;
-  box-shadow: 0 2px 10px var(--shadow-color);
   z-index: 1000;
   position: fixed;
   top: 0;
@@ -11,8 +10,20 @@ header {
 }
 
 header a:has(.logo) {
-  color: var(--primary-text);
+  color: var(--secondary-text);
   text-decoration: none;
+}
+
+header a:has(.logo):hover {
+  color: var(--primary-text);
+}
+
+header .btn {
+  background: var(--primary-bg);
+}
+
+header .btn:hover {
+  background: var(--secondary-bg);
 }
 
 header .container {
