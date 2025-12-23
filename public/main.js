@@ -214,7 +214,7 @@ function addCopyBtn(container) {
     wrapper.innerHTML = `
       <div class="code-data">
         <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
-        <p>${lang.toUpperCase()}</p>
+        <p>${title(lang)}</p>
       </div>
     `;
 
@@ -239,6 +239,12 @@ function addCopyBtn(container) {
     });
   });
 }
+
+function title(text) {
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 
 // ==========================================
 // 5. Event Listeners

@@ -2,4 +2,3 @@ node_modules/
 .env
 server.js
 README.md
-huai_database.json

@@ -7,7 +7,6 @@
 #chat-container .container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .input-area {
@@ -17,9 +16,10 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 900px;
-  padding: 0 20px;
+  padding-block: 10px !important;
   z-index: 1000;
   transition: bottom 0.3s;
+
   box-shadow: 0 -25px 30px var(--primary-bg);
   background: var(--primary-bg);
 }
@@ -30,7 +30,6 @@
   display: flex;
   gap: 10px;
   border-radius: 30px;
-  border: 1px solid var(--border-color);
   align-items: flex-end;
 }
 
@@ -91,6 +90,6 @@
     font-size: 0.9rem;
   }
   .input-area:has(textarea:focus) {
-    bottom: 10px;
+    bottom: 0;
   }
 }
