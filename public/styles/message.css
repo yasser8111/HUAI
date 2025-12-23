@@ -1,16 +1,16 @@
 :root {
-  --code-bg: #f6f8fa;
+  --code-bg: rgb(231, 230, 230);
   --code-font: "Google Sans Code", "JetBrains Mono", "Fira Code",
     "IBM Plex Mono", "Cascadia Code", "Courier New", monospace;
 
-  --syntax-keyword: #d73a49;
-  --syntax-string: #22863a;
-  --syntax-number: #005cc5;
-  --syntax-comment: #6a737d;
-  --syntax-function: #6f42c1;
-  --syntax-variable: #e36209;
-  --syntax-class: #005cc5;
-  --syntax-operator: #d73a49;
+  --syntax-keyword: #e5534b; /* أفتح قليلًا من #d73a49 */
+  --syntax-string: #2c974b; /* أفتح قليلًا من #22863a */
+  --syntax-number: #006ec6; /* أفتح قليلًا من #005cc5 */
+  --syntax-comment: #7d868f; /* أفتح قليلًا من #6a737d */
+  --syntax-function: #8058d4; /* أفتح قليلًا من #6f42c1 */
+  --syntax-variable: #f0752a; /* أفتح قليلًا من #e36209 */
+  --syntax-class: #006ec6; /* أفتح قليلًا من #005cc5 */
+  --syntax-operator: #e5534b; /* أفتح قليلًا من #d73a49 */
 }
 
 body.dark-mode {
@@ -66,7 +66,7 @@ body.dark-mode {
   position: relative;
   background: var(--code-bg);
   color: var(--primary-text);
-  padding-block: 14px;
+  padding-bottom: 14px;
   border-radius: 10px;
 }
 
@@ -74,16 +74,25 @@ body.dark-mode {
   display: flex;
   justify-content: space-between;
   align-content: center;
-  color: var(--primary-text);
-  margin-inline: 10px;
+  color: var(--secondary-text);
+  padding: 10px 10px 0 10px;
+  font-size: 1rem;
 }
 
 .code-data button {
+  color: var(--secondary-text);
   border: none;
   outline: none;
   background: transparent;
   width: 40px;
   height: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.code-data button:hover {
+  background: var(--secondary-bg);
+  color: var(--primary-text);
 }
 
 .ai pre {
@@ -117,7 +126,6 @@ body.dark-mode {
   unicode-bidi: embed;
 }
 
-/* Syntax mapping */
 .hljs-keyword,
 .hljs-built_in,
 .hljs-type {
@@ -164,10 +172,14 @@ body.dark-mode {
 .ai ol code,
 .ai li code,
 .ai p code {
+  display: inline-block;
   color: var(--syntax-variable) !important;
   font-weight: bold;
   background: hsla(24, 92%, 46%, 0.05);
   border-radius: 5px;
+  padding: 0 4px;
+  line-height: 1.4;
+  vertical-align: middle;
 }
 
 .ai pre::-webkit-scrollbar {
@@ -237,7 +249,7 @@ body.dark-mode {
   margin: 4px 0;
 }
 
-.ai code {
+.ai pre > code {
   direction: ltr;
   text-align: left;
   unicode-bidi: embed;

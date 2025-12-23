@@ -136,7 +136,7 @@ function addMessage(text, sender) {
 
     // Highlight code and format tables
     highlightCode(msgDiv);
-    addCopyButtons(msgDiv);
+    addCopyBtn(msgDiv);
     wrapTables(msgDiv);
   } else {
     // For plain text (User) to prevent XSS vulnerabilities
@@ -202,30 +202,41 @@ async function sendMessage() {
 /**
  * Add copy buttons and langguge name to code blocks inside a container
  */
-function addCopyButtons(container) {
+function addCopyBtn(container) {
   container.querySelectorAll("pre").forEach((pre) => {
     if (pre.parentElement.classList.contains("code-wrapper")) return;
 
     const code = pre.querySelector("code");
-    const lang = code?.className.split("-")[1] || "code";
+    const lang = code?.className.match(/language-([^\s]+)/)?.[1] || "code";
 
     const wrapper = document.createElement("div");
     wrapper.className = "code-wrapper";
     wrapper.innerHTML = `
-    <div class="code-data">
-    <button><i class="fa-regular fa-copy"></i></button>
-      <p>${lang.toUpperCase()}</p>
-    </div>
+      <div class="code-data">
+        <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
+        <p>${lang.toUpperCase()}</p>
+      </div>
     `;
 
     pre.replaceWith(wrapper);
     wrapper.appendChild(pre);
 
-    wrapper.querySelector(".copy-btn").onclick = async (e) => {
-      await navigator.clipboard.writeText(code?.innerText || "");
-      e.currentTarget.innerHTML = '<i class="fa-solid fa-check"></i>';
-      setTimeout(() => e.currentTarget.innerHTML = '<i class="fa-regular fa-copy"></i>', 1500);
-    };
+    const copyBtn = wrapper.querySelector(".copy-btn");
+    if (!copyBtn) return;
+
+    copyBtn.addEventListener("click", async (e) => {
+      const btn = e.currentTarget;
+      try {
+        await navigator.clipboard.writeText(code?.innerText || "");
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(
+          () => (btn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
+          1500
+        );
+      } catch (err) {
+        console.error("Copy failed:", err);
+      }
+    });
   });
 }
 
