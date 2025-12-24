@@ -11,7 +11,7 @@
 
 .input-area {
   position: fixed;
-  bottom: 40px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -69,7 +69,7 @@
 
 @media (max-width: 576px) {
   .input-area {
-    box-shadow: 0 -15px 20px var(--primary-bg);
+    bottom: 20px;
   }
 
   .input-bar {

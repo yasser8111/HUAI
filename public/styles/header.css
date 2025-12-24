@@ -38,8 +38,8 @@ header .container {
   }
 }
 
-@media (min-width: 1000px) {
+/* @media (min-width: 1000px) {
   header {
     background: transparent;
   }
-}
+} */

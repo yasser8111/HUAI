@@ -203,40 +203,30 @@ async function sendMessage() {
  * Add copy buttons and langguge name to code blocks inside a container
  */
 function addCopyBtn(container) {
-  container.querySelectorAll("pre").forEach((pre) => {
-    if (pre.parentElement.classList.contains("code-wrapper")) return;
-
+  container.querySelectorAll("pre:not(.code-wrapper pre)").forEach((pre) => {
     const code = pre.querySelector("code");
-    const lang = code?.className.match(/language-([^\s]+)/)?.[1] || "code";
+    const lang = code?.className.match(/language-(\S+)/)?.[1] || "code";
 
     const wrapper = document.createElement("div");
     wrapper.className = "code-wrapper";
+    
     wrapper.innerHTML = `
-      <div class="code-data">
-        <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
-        <p>${title(lang)}</p>
-      </div>
+      <span class="lang-name">${title(lang)}</span>
+      <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
     `;
 
     pre.replaceWith(wrapper);
-    wrapper.appendChild(pre);
+    wrapper.append(pre);
 
-    const copyBtn = wrapper.querySelector(".copy-btn");
-    if (!copyBtn) return;
-
-    copyBtn.addEventListener("click", async (e) => {
-      const btn = e.currentTarget;
+    wrapper.querySelector(".copy-btn").onclick = async ({ currentTarget: btn }) => {
       try {
-        await navigator.clipboard.writeText(code?.innerText || "");
+        await navigator.clipboard.writeText(code?.innerText || pre.innerText);
         btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(
-          () => (btn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
-          1500
-        );
+        setTimeout(() => btn.innerHTML = '<i class="fa-regular fa-copy"></i>', 1500);
       } catch (err) {
-        console.error("Copy failed:", err);
+        console.error("Copy failed", err);
       }
-    });
+    };
   });
 }
 

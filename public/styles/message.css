@@ -3,13 +3,13 @@
   --code-font: "Google Sans Code", "JetBrains Mono", "Fira Code",
     "IBM Plex Mono", "Cascadia Code", "Courier New", monospace;
 
-  --syntax-keyword: #cf222e;   /* keywords: clear red, not harsh */
-  --syntax-string: #1a7f37;    /* strings: calm green */
-  --syntax-number: #0550ae;    /* numbers: deep soft blue */
-  --syntax-comment: #6e7781;   /* comments: neutral gray */
-  --syntax-function: #8250df;  /* functions: soft purple */
-  --syntax-variable: #bc4c00;  /* variables: warm orange */
-  --syntax-class: #0969da;     /* classes: clean blue */
+  --syntax-keyword: #cf222e;
+  --syntax-string: #1a7f37;
+  --syntax-number: #0550ae;
+  --syntax-comment: #6e7781;
+  --syntax-function: #8250df;
+  --syntax-variable: #bc4c00;
+  --syntax-class: #0969da;
   --syntax-operator: #cf222e;
 }
 
@@ -63,33 +63,51 @@ body.dark-mode {
   position: relative;
   background: var(--code-bg);
   color: var(--primary-text);
-  padding-bottom: 14px;
+  padding-block: 14px 5px;
   border-radius: 10px;
 }
 
-.code-data {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  color: var(--secondary-text);
-  padding: 10px 10px 0 10px;
-  font-size: 1rem;
-}
-
-.code-data button {
-  color: var(--secondary-text);
+.code-wrapper .copy-btn {
+  position: sticky;
+  top: 80px;
+  right: 0;
+  width: 36px;
+  height: 36px;
   border: none;
   outline: none;
   background: transparent;
-  width: 40px;
-  height: 40px;
+  color: var(--secondary-text);
+  font-size: 1.2rem;
   cursor: pointer;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
 }
 
-.code-data button:hover {
-  background: var(--secondary-bg);
+.code-wrapper .copy-btn:hover {
+  background: var(--primary-bg);
   color: var(--primary-text);
+}
+
+.code-wrapper .lang-name {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  color: var(--secondary-text);
+  font-size: 1.2rem;
+  margin: 8px;
+}
+
+@media (max-width: 576px) {
+  .code-wrapper .copy-btn {
+    top: 70px;
+    font-size: 1rem;
+  }
+  .code-wrapper .lang-name {
+    font-size: 1rem;
+  }
 }
 
 .ai pre {
@@ -104,7 +122,7 @@ body.dark-mode {
   font-family: var(--code-font) !important;
   overflow-y: hidden;
   background: var(--code-inline-bg);
-  padding: 2px 6px 14px 14px;
+  padding-inline: 10px !important;
   font-size: 0.85rem;
   scrollbar-color: var(--secondary-bg) transparent;
   direction: ltr;
@@ -261,7 +279,7 @@ body.dark-mode {
 .ai.loading {
   color: var(--primary-text);
   min-width: 60px;
-  padding: 20px;
+  padding: 30px;
   border-radius: 4px 18px 18px 18px;
   display: inline-flex;
   align-items: center;
