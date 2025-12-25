@@ -17,15 +17,13 @@ export const FETCH_TIMEOUT = 30000;
 
 // Available AI models
 export const MODELS = {
-  FAST: "Qwen/Qwen2.5-7B-Instruct:together",
-  SMART: "meta-llama/Llama-3.3-70B-Instruct:together",
+  FAST: "meta-llama/Llama-3.2-3B-Instruct", 
+  SMART: "deepseek-ai/DeepSeek-V3",         
+  CODE: "Qwen/Qwen2.5-Coder-32B-Instruct"   
 };
 
 // Limit to change the modle
-export const FAST_LIMIT = 30;
-
-// Default temperature for AI responses (controls creativity/randomness)
-export const DEFAULT_TEMPERATURE = 0.2;
+export const FAST_LIMIT = 40;
 
 // Absolute maximum prompt length allowed
 export const MAX_PROMPT_LENGTH = 2000;

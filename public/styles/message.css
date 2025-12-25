@@ -59,31 +59,44 @@ body.dark-mode {
   will-change: opacity, transform;
 }
 
-.ai .code-wrapper {
-  position: relative;
+.code-wrapper {
   background: var(--code-bg);
   color: var(--primary-text);
-  padding-block: 14px 5px;
   border-radius: 10px;
 }
 
-.code-wrapper .copy-btn {
+.code-header {
   position: sticky;
-  top: 80px;
+  top: 70px; 
   right: 0;
-  width: 36px;
-  height: 36px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--code-bg);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.code-wrapper .lang-name {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.copy-btn {
+  width: 32px;
+  height: 32px;
   border: none;
   outline: none;
   background: transparent;
   color: var(--secondary-text);
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8px;
 }
 
 .code-wrapper .copy-btn:hover {
@@ -91,22 +104,15 @@ body.dark-mode {
   color: var(--primary-text);
 }
 
-.code-wrapper .lang-name {
-  position: absolute;
-  top: 20px;
-  left: 0;
-  color: var(--secondary-text);
-  font-size: 1.2rem;
-  margin: 8px;
-}
-
 @media (max-width: 576px) {
+  .code-header {
+    top: 60px;
+  }
   .code-wrapper .copy-btn {
-    top: 70px;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   .code-wrapper .lang-name {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 

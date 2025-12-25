@@ -148,19 +148,10 @@ function addMessage(text, sender) {
 }
 
 /**
- * Send the message to the server
+ * Create and add a loading indicator(Loading Indicator)
+ * @returns {HTMLElement} The downloaded item was later deleted.
  */
-async function sendMessage() {
-  if (!elements.inputField) return;
-
-  const text = elements.inputField.value.trim();
-  if (!text) return;
-
-  // 1. Display user message
-  addMessage(text, "user");
-  resetInput();
-
-  // 2. Display loading indicator
+function showLoading() {
   const loadingDiv = document.createElement("div");
   loadingDiv.className = "message ai loading";
   for (let i = 0; i < 3; i++) {
@@ -169,6 +160,47 @@ async function sendMessage() {
   }
   elements.chatContainer.appendChild(loadingDiv);
   scrollToBottom();
+  return loadingDiv;
+}
+
+/**
+ * Hide the loading indicator
+ * @param {HTMLElement} loadingDiv - The item to be deleted
+ */
+function hideLoading(loadingDiv) {
+  if (loadingDiv) loadingDiv.remove();
+}
+
+/**
+ * Update the status of the send button and field
+ * @param {boolean} isLoading - Loading status
+ */
+function setChatState(isLoading) {
+  const originalIcon = '<i class="fa-solid fa-paper-plane"></i>';
+  const loadingIcon = '<i class="fa-solid fa-square"></i>';
+
+  elements.sendBtn.disabled = isLoading;
+  elements.inputField.disabled = isLoading;
+  elements.sendBtn.innerHTML = isLoading ? loadingIcon : originalIcon;
+
+  if (!isLoading) {
+    elements.inputField.focus();
+  }
+}
+
+/**
+ * Send the message to the server
+ */
+async function sendMessage() {
+  if (!elements.inputField || elements.sendBtn.disabled) return;
+
+  const text = elements.inputField.value.trim();
+  if (!text) return;
+
+  setChatState(true);
+  addMessage(text, "user");
+  resetInput();
+  const loadingIndicator = showLoading();
 
   try {
     const res = await fetch("/api/ask", {
@@ -178,24 +210,16 @@ async function sendMessage() {
     });
 
     const serverResponse = await res.text();
-
-    if (!res.ok) {
-      throw new Error(serverResponse || "خطأ في الاتصال بالسيرفر");
-    }
+    if (!res.ok) throw new Error(serverResponse || "خطأ في الاتصال");
 
     const data = JSON.parse(serverResponse);
-
-    if (!data.response) {
-      throw new Error("Invalid server response format");
-    }
-
-    // Remove loading indicator and add the actual response
-    loadingDiv.remove();
+    hideLoading(loadingIndicator);
     addMessage(data.response, "ai");
   } catch (err) {
-    loadingDiv.remove();
+    hideLoading(loadingIndicator);
     addMessage(`حدث خطأ: ${err.message}`, "ai");
-    console.error(err);
+  } finally {
+    setChatState(false);
   }
 }
 
@@ -209,32 +233,33 @@ function addCopyBtn(container) {
 
     const wrapper = document.createElement("div");
     wrapper.className = "code-wrapper";
-    
+
     wrapper.innerHTML = `
-      <span class="lang-name">${title(lang)}</span>
-      <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
+      <div class="code-header">
+        <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
+        <span class="lang-name">${lang}</span>
+      </div>
     `;
 
     pre.replaceWith(wrapper);
     wrapper.append(pre);
 
-    wrapper.querySelector(".copy-btn").onclick = async ({ currentTarget: btn }) => {
+    wrapper.querySelector(".copy-btn").onclick = async ({
+      currentTarget: btn,
+    }) => {
       try {
         await navigator.clipboard.writeText(code?.innerText || pre.innerText);
         btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(() => btn.innerHTML = '<i class="fa-regular fa-copy"></i>', 1500);
+        setTimeout(
+          () => (btn.innerHTML = '<i class="fa-regular fa-copy"></i>'),
+          1500
+        );
       } catch (err) {
         console.error("Copy failed", err);
       }
     };
   });
 }
-
-function title(text) {
-  if (!text) return "";
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
 
 // ==========================================
 // 5. Event Listeners

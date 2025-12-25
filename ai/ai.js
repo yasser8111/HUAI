@@ -1,6 +1,5 @@
 import "dotenv/config";
 import { LRUCache } from "lru-cache";
-import fetch from "node-fetch";
 import {
   MAX_MESSAGES,
   MAX_SESSIONS,
@@ -9,13 +8,34 @@ import {
   FETCH_TIMEOUT,
   MODELS,
   FAST_LIMIT,
-  DEFAULT_TEMPERATURE,
   AI_PROFILE,
 } from "../config.js";
 
 // ==========================================
 // 1. Session Cache Management
 // ==========================================
+
+/**
+ * Cleaning AI output of Asian characters or foreign symbols
+ */
+function cleanAIResponse(text) {
+  return text
+    .replace(
+      /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f\u0900-\u097f]/g,
+      ""
+    )
+    .trim();
+}
+
+/**
+ * Clean the text of injection attempts or strange symbols
+ */
+function sanitizePrompt(prompt) {
+  return prompt
+    .replace(/<\|.*?\|>/g, "")
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, "")
+    .trim();
+}
 
 /**
  * In-memory cache using LRU (Least Recently Used) policy
@@ -35,7 +55,6 @@ const memoryCache = new LRUCache({
  */
 function getMemory(sessionId) {
   if (!memoryCache.has(sessionId)) {
-    // Initialize memory with the AI system prompt/profile
     memoryCache.set(sessionId, [{ role: "system", content: AI_PROFILE }]);
   }
   return memoryCache.get(sessionId);
@@ -52,8 +71,12 @@ function getMemory(sessionId) {
 function addMessage(memory, role, content) {
   memory.push({ role, content });
   if (memory.length > MAX_MESSAGES + 1) {
-    memory.splice(1, 1);
+    const systemMessage = memory[0];
+    const recentMessages = memory.slice(-MAX_MESSAGES);
+    const newMemory = [systemMessage, ...recentMessages];
+    return newMemory;
   }
+  return memory;
 }
 
 /**
@@ -62,13 +85,22 @@ function addMessage(memory, role, content) {
  * @param {string} prompt - The user's input string.
  * @returns {string} The name of the selected model.
  */
-function selectSmartModel(prompt) {
-  const length = prompt.length;
-  if (length < FAST_LIMIT) {
-    return MODELS.FAST;
-  } else {
-    return MODELS.SMART;
+function getSmartConfigs(prompt) {
+  const codeKeywords =
+    /({|}|\[|\]|=>|function|const|let|var|import|export|def |if |class |async|await|select |from |where |script|coding|program|develop|softw|api|كود|برمج|دال|خوارزم|تطوير|موقع|تطبيق|سيكويل|قواعد|بناء|برمج[ةه]|دال[ةه])/i;
+  const creativeKeywords =
+    /(writ|imag|stor|poem|creat|blog|essay|artic|paint|draw|design|اكتب|قص[ةه]|شعر|تخيل|ابداع|مقال|افكار|سيناريو|وصف|تأليف|رواية|مدون[ةه])/i;
+
+  if (codeKeywords.test(prompt)) {
+    return { model: MODELS.CODE, temperature: 0.1 };
   }
+  if (creativeKeywords.test(prompt)) {
+    return { model: MODELS.SMART, temperature: 0.9 };
+  }
+  if (prompt.length > FAST_LIMIT) {
+    return { model: MODELS.SMART, temperature: 0.7 };
+  }
+  return { model: MODELS.FAST, temperature: 0.5 };
 }
 
 // ==========================================
@@ -92,17 +124,27 @@ export async function askAI(sessionId, prompt, options = {}) {
   const trimmedPrompt = prompt?.trim();
   if (!trimmedPrompt) throw new Error("Invalid prompt");
 
-  const memory = getMemory(sessionId);
-  addMessage(memory, "user", trimmedPrompt);
+  const cleanPrompt = sanitizePrompt(trimmedPrompt);
+  if (!cleanPrompt) throw new Error("Prompt is empty after sanitization");
 
-  const model = options.model || selectSmartModel(trimmedPrompt);
-  const temperature = options.temperature ?? DEFAULT_TEMPERATURE;
+  let memory = getMemory(sessionId);
+  memory = addMessage(memory, "user", cleanPrompt);
+  memoryCache.set(sessionId, memory);
+
+  const config = getSmartConfigs(cleanPrompt);
+  const model = options.model || config.model;
+  const temperature = options.temperature ?? config.temperature;
 
   try {
-    const response = await requestHFRouter(memory, model, temperature);
-    addMessage(memory, "assistant", response);
-    return response;
+    const rawResponse = await requestHFRouter(memory, model, temperature);
+    const finalResponse = cleanAIResponse(rawResponse);
+
+    memory = addMessage(memory, "assistant", finalResponse);
+    memoryCache.set(sessionId, memory);
+
+    return finalResponse;
   } catch (error) {
+    memory.pop();
     throw error;
   }
 }
@@ -120,7 +162,7 @@ export async function askAI(sessionId, prompt, options = {}) {
  * @returns {Promise<string>} The AI's response text.
  * @throws {Error} If the request fails, times out, or returns a non-200 status.
  */
-async function requestHFRouter(memory, model, temperature) {
+async function requestHFRouter(messages, model, temperature, retries = 2) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
 
@@ -134,31 +176,30 @@ async function requestHFRouter(memory, model, temperature) {
           Authorization: `Bearer ${API_KEY}`,
         },
         body: JSON.stringify({
-          model: model,
-          messages: memory,
+          model,
+          messages,
           max_tokens: MAX_TOKENS,
-          temperature: temperature,
+          temperature,
         }),
         signal: controller.signal,
       }
     );
 
-    const data = await res.json();
     clearTimeout(timer);
 
     if (!res.ok) {
-      console.error("API error:", data);
-      throw new Error(
-        data.error?.message || data.error || `Error: ${res.status}`
-      );
+      const errorData = await res.json().catch(() => ({}));
+      if (res.status >= 500 && retries > 0) {
+        return requestHFRouter(messages, model, temperature, retries - 1);
+      }
+      throw new Error(errorData.error?.message || `API Error: ${res.status}`);
     }
 
+    const data = await res.json();
     return data.choices[0].message.content.trim();
   } catch (error) {
     clearTimeout(timer);
-    if (error.name === "AbortError") {
-      throw new Error("Request timed out");
-    }
+    if (error.name === "AbortError") throw new Error("Request timed out");
     throw error;
   }
 }
