@@ -95,7 +95,7 @@ function getSmartConfigs(prompt) {
     return { model: MODELS.CODE, temperature: 0.1 };
   }
   if (creativeKeywords.test(prompt)) {
-    return { model: MODELS.SMART, temperature: 0.9 };
+    return { model: MODELS.CREATIVE, temperature: 0.9 };
   }
   if (prompt.length > FAST_LIMIT) {
     return { model: MODELS.SMART, temperature: 0.7 };

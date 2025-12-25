@@ -19,7 +19,8 @@ export const FETCH_TIMEOUT = 30000;
 export const MODELS = {
   FAST: "meta-llama/Llama-3.2-3B-Instruct", 
   SMART: "deepseek-ai/DeepSeek-V3",         
-  CODE: "Qwen/Qwen2.5-Coder-32B-Instruct"   
+  CODE: "Qwen/Qwen2.5-Coder-32B-Instruct",
+  CREATIVE: "mistralai/Mistral-7B-Instruct-v0.3"
 };
 
 // Limit to change the modle

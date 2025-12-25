@@ -1,8 +1,8 @@
 :root {
-  --code-bg: #f3f4f6;
   --code-font: "Google Sans Code", "JetBrains Mono", "Fira Code",
     "IBM Plex Mono", "Cascadia Code", "Courier New", monospace;
-
+  
+  --code-bg: #f3f4f6;
   --syntax-keyword: #cf222e;
   --syntax-string: #1a7f37;
   --syntax-number: #0550ae;
@@ -15,7 +15,6 @@
 
 body.dark-mode {
   --code-bg: #2a2a2a;
-
   --syntax-keyword: #ff7b72;
   --syntax-string: #a5d6ff;
   --syntax-number: #79c0ff;
