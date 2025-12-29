@@ -1,0 +1,331 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-logo: "Audiowide", sans-serif;
+  --font-code: "Google Sans Code", "JetBrains Mono", "Vazirmatn",
+    "IBM Plex Sans Arabic", "Fira Code", monospace;
+
+  --color-light-50: #ffffff;
+  --color-light-100: #fafafa;
+  --color-light-200: #f5f5f5;
+  --color-light-300: #e5e5e5;
+  --color-light-400: #a3a3a3;
+  --color-light-500: #737373;
+  --color-light-600: #525252;
+  --color-light-700: #404040;
+  --color-light-800: #262626;
+  --color-light-900: #171717;
+
+  --color-dark-50: #1a1a1a;
+  --color-dark-100: #121212;
+  --color-dark-200: #0a0a0a;
+  --color-dark-300: #262626;
+  --color-dark-400: #3f3f46;
+  --color-dark-500: #71717a;
+  --color-dark-600: #a1a1aa;
+  --color-dark-700: #d4d4d8;
+  --color-dark-800: #e4e4e7;
+  --color-dark-900: #f4f4f5;
+
+  --color-syntax-keyword: #e5484d;
+  --color-syntax-string: #22863a;
+  --color-syntax-number: #2188ff;
+  --color-syntax-comment: #8c959f;
+  --color-syntax-function: #a475f9;
+  --color-syntax-variable: #e36209;
+}
+
+.dark {
+  --color-syntax-keyword: #ff7b72;
+  --color-syntax-string: #7ee787;
+  --color-syntax-number: #79c0ff;
+  --color-syntax-comment: #8b949e;
+  --color-syntax-function: #d2a8ff;
+  --color-syntax-variable: #ffa657;
+}
+@keyframes userMessage {
+  0% {
+    opacity: 0;
+    transform: translateX(10px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+@keyframes aiMessage {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes aiTyping {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-light-400);
+  border-radius: 20px;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: var(--color-dark-400);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-light-500);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-light-400) transparent;
+}
+
+.dark * {
+  scrollbar-color: var(--color-dark-400) transparent;
+}
+
+a:active,
+button:active {
+  transform: scale(0.95);
+  transition: transform none;
+}
+
+.code-wrapper {
+  background: var(--color-light-300);
+  color: var(--primary-text);
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+.code-header {
+  position: sticky;
+  top: 70px;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-light-300);
+  padding: 10px;
+  border-radius: 10px;
+  direction: ltr;
+}
+
+.dark .code-header,
+.dark .code-wrapper {
+  background: var(--color-dark-300);
+}
+
+.code-wrapper .lang-name {
+  color: var(--color-light-400);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.copy-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-light-400);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn:hover {
+  background: var(--color-light-200);
+}
+.dark .copy-btn:hover {
+  background: var(--color-dark-100);
+}
+
+.ai pre {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre;
+  max-width: 100%;
+  display: block;
+}
+
+.ai code {
+  font-family: var(--code-font) !important;
+  overflow-x: auto;
+  padding-inline: 10px;
+  font-size: 1rem;
+  scrollbar-color: var(--secondary-bg) transparent;
+  direction: ltr;
+  unicode-bidi: embed;
+  background: transparent;
+  display: inline-block;
+  min-width: 100%;
+  width: max-content;
+  color: var(--color-black);
+}
+
+.dark .ai code {
+  color: var(--color-white);
+}
+
+.ai pre,
+.ai code {
+  direction: ltr;
+  text-align: left;
+}
+
+.ai :not(pre) > code {
+  display: inline-block;
+  color: var(--color-syntax-variable) !important;
+  font-weight: bold;
+  background: hsla(24, 92%, 46%, 0.05);
+  border-radius: 5px;
+  padding: 0 4px;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.hljs-keyword,
+.hljs-built_in,
+.hljs-type {
+  color: var(--color-syntax-keyword) !important;
+  font-weight: 600;
+}
+
+.hljs-string,
+.hljs-attr {
+  color: var(--color-syntax-string) !important;
+}
+
+.hljs-number,
+.hljs-literal {
+  color: var(--color-syntax-number) !important;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--color-syntax-comment) !important;
+  font-weight: 600;
+}
+
+.hljs-function,
+.hljs-title {
+  color: var(--color-syntax-function) !important;
+}
+
+.hljs-subst,
+.hljs-variable,
+.hljs-params {
+  color: var(--color-syntax-variable) !important;
+}
+
+.hljs-class,
+.hljs-name {
+  color: var(--color-syntax-class) !important;
+}
+
+.hljs-operator,
+.hljs-symbol {
+  color: var(--color-syntax-operator) !important;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 8px 0;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+}
+
+.ai table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-light-300);
+}
+
+.ai th,
+.ai td {
+  border: 1px solid var(--color-light-300);
+  padding: 8px 12px;
+  text-align: start;
+  white-space: nowrap;
+}
+
+.dark .ai table,
+.dark .ai th,
+.dark .ai td {
+  border: 1px solid var(--color-dark-300);
+}
+
+.table-wrapper.center {
+  display: flex;
+  justify-content: center;
+}
+
+.ai hr {
+  margin-block: 30px;
+  background: var(--color-light-500);
+}
+
+.ai h1,
+.ai h2,
+.ai h3,
+.ai h4,
+.ai h5,
+.ai h6,
+.ai p {
+  margin: 8px 0;
+}
+
+.ai ol,
+.ai ul {
+  padding-inline-start: 1.4em;
+  margin-left: 6px;
+  list-style-position: inside;
+}
+
+.ai li {
+  margin: 4px 0;
+}
+
+.ai pre > code {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+.ai pre {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
