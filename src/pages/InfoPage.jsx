@@ -2,8 +2,7 @@ import React from "react";
 
 const InfoPage = () => {
   return (
-    <div className="pt-24 pb-20 px-6 container mx-auto max-w-3xl animate-[aiMessage_0.3s_ease-out] text-dark-100 dark:text-light-100">
-      {/* Header */}
+    <div className="pt-24 pb-20 px-2 sm:px-4 container mx-auto max-w-3xl animate-[aiMessage_0.3s_ease-out] text-dark-100 dark:text-light-100">
       <header className="border-b border-dark-100/10 dark:border-light-100/10 pb-10 mb-12">
         <h1 className="text-4xl font-logo mb-4 tracking-tighter uppercase">
           HUAI
@@ -15,7 +14,6 @@ const InfoPage = () => {
       </header>
 
       <div className="space-y-16">
-        {/* Section 01: About */}
         <section>
           <h2 className="text-xs uppercase tracking-[0.2em] opacity-40 mb-8 font-bold">
             01 / عن بوت HUAI

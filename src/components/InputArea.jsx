@@ -84,7 +84,7 @@ const InputArea = ({ onSend, disabled }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] p-2 sm:pt-2 sm:p-5 z-[1000] bg-light-200 dark:bg-dark-100 shadow-[0_-15px_20px_0px_var(--color-light-200)] dark:shadow-[0_-15px_20px_0px_var(--color-dark-100)]">
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] p-5 sm:pt-2 sm:p-10 z-[1000] bg-light-200 dark:bg-dark-100 shadow-[0_-15px_20px_0px_var(--color-light-200)] dark:shadow-[0_-15px_20px_0px_var(--color-dark-100)]">
       <div className="flex flex-col p-3 bg-light-50 dark:bg-light-800 rounded-3xl">
         <textarea
           ref={textareaRef}
